@@ -1,3 +1,3 @@
-import { MapComponent } from "./map";
+import { Map } from './map';
 
-export { MapComponent };
+export { Map };
