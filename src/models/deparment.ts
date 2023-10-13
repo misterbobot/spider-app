@@ -80,6 +80,11 @@ export type TOpenHours = {
     hours: string;
 }
 
+export type TService = {
+    id: number;
+    name: string;
+}
+
 export type TDepartment = {
     salePointName: string;
     address: string;
@@ -98,4 +103,5 @@ export type TDepartment = {
     kep: boolean;
     myBranch: boolean;
     type: 'department' | 'atm';
+    services: TService[];
 }

@@ -104,7 +104,8 @@ export const departmentMock : TDepartment = {
     kep: true,
     myBranch: false,
     status: "открытая",
-    type: 'department'
+    type: 'department',
+    services: []
 }
 
 export const departmentMock2 : TDepartment = {
@@ -134,5 +135,6 @@ export const departmentMock2 : TDepartment = {
     kep: true,
     myBranch: false,
     status: "открытая",
-    type: 'atm'
+    type: 'atm',
+    services: []
 }
