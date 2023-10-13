@@ -10,7 +10,7 @@ export const Department: React.FC<DepartmentProps> = ({
 }) => {
     return (
         <>
-            
+            {department.type}
         </>
     );
 }

@@ -97,4 +97,5 @@ export type TDepartment = {
     distance: number;
     kep: boolean;
     myBranch: boolean;
+    type: 'department' | 'atm';
 }

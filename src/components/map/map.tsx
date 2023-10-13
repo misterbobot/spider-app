@@ -5,6 +5,8 @@ import { departmentMock } from "../../mocks/departments";
 import { TDepartment } from "../../models/deparment";
 import activeIcon from './activeIcon.svg';
 import defaultIcon from './defaultIcon.svg';
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
+import { fetchDepartments } from "../../store/thunks/fetchDepartments";
 
 export const Map: React.FC = () => {
     const yandexMapObj = useRef(null);
@@ -17,33 +19,48 @@ export const Map: React.FC = () => {
       zoom: 11
   };
 
-  const MARKERS = [
-      {lat: 55.769233, lng: 37.573028, active: true},
-      {lat: 55.758928, lng: 37.598745, active: false},
-      {lat: 55.733842, lng: 37.588144, active: false},
-      {lat: 55.752658, lng: 37.626332, active: false},
-      {lat: 55.743326, lng: 37.567430, active: false},
-  ]
+  const departments = useAppSelector(state => state.departments.departments);
+  
+  console.log(departments);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    //@ts-ignore
+    dispatch(fetchDepartments())
+  }, [dispatch]);
+
+  const onDepartmentClick = (department: TDepartment) => {
+    setChosenDepartment(department);
+    setIsSheetOpen(true);
+  }
+
 
   // @ts-ignore
   function renderMarkers(map, maps) {
-      MARKERS.map(({active, ...position}) => {
-          new maps.Marker({
-              position,
+    
+      departments.map((deparment) => {
+        const {type, latitude, longitude} = deparment;
+          const marker = new maps.Marker({
+              position: {
+                  lat: latitude,
+                  lng: longitude
+              },
               map,
-              icon: active ? activeIcon : defaultIcon,
-              title: 'Hello World!'
+              icon: type === 'atm' ? activeIcon : defaultIcon,
+              title: 'Hello World!',
           });
+
+          marker.addListener("click", () => {
+            onDepartmentClick(deparment);
+          });
+
+          return marker;
       })
   }
 
     const [chosenDepartment, setChosenDepartment] = React.useState<TDepartment | null>(null);
     const [isSheetOpen, setIsSheetOpen] = React.useState<boolean>(false);
-
-    useEffect(() => {
-      setChosenDepartment(departmentMock);
-      setIsSheetOpen(true);
-    }, []);
 
     return (
         <div style={{ height: '100vh', width: '100%' }}>
