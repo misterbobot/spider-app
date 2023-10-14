@@ -85,6 +85,10 @@ export type TService = {
     name: string;
 }
 
+export type TDepartmentWorkLoad = {
+    avgWaitTimeMin: number;
+}
+
 export type TDepartment = {
     salePointName: string;
     address: string;
@@ -104,4 +108,5 @@ export type TDepartment = {
     myBranch: boolean;
     type: 'department' | 'atm';
     services: TService[];
+    workLoad: TDepartmentWorkLoad;
 }

@@ -13,6 +13,7 @@ module.exports = {
         red: '#C32A3E',
         gray: '#9A9A9A',
         label: '#616060',
+        darkBlue: '#3D6EFA',
       },
       backgroundPosition: {
         top_bg: 'top -60px',
@@ -48,6 +49,7 @@ module.exports = {
         'heading-xl': ['38px', { fontWeight: '600' }],
         'heading-xxl': ['52px', { fontWeight: '600' }],
         'text-s': ['12px', { lineHeight: '15px' }],
+        'text-s-medium': ['12px', { lineHeight: '15px', fontWeight: '500' } ],
         'text-s-bold': ['12px', { lineHeight: '15px', fontWeight: '700' }],
         'text-s-height': ['12px', { lineHeight: '20px' }],
         'text-sm': ['14px', { lineHeight: '18px' }],
@@ -56,6 +58,8 @@ module.exports = {
         'text-sss': ['8px', { fontWeight: '400' }],
         'text-m': ['16px', { lineHeight: '20px', fontWeight: '400' }],
         'text-m-bold': ['16px', { fontWeight: '700', lineHeight: '18px' }],
+        'text-m-medium': ['16px', { lineHeight: '20px', fontWeight: '500' }],
+        'text-m-semibold': ['16px', { fontWeight: '600' }],
         'text-l': ['18px', { lineHeight: '22px' }],
         'accent-l': ['18px', { fontWeight: '500' }],
 

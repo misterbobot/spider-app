@@ -12,10 +12,9 @@ type DepartmentSheetProps = {
 export const DepartmentSheet: React.FC<DepartmentSheetProps> = ({department, isOpen, onClose}) => {
     return (
         <>
-            <Sheet isOpen={isOpen} onClose={onClose}>
-                <Sheet.Container>
-                    <Sheet.Header />
-                    <Sheet.Content>
+            <Sheet isOpen={isOpen} onClose={onClose} >
+                <Sheet.Container >
+                    <Sheet.Content >
                         <Department department={department} />
                     </Sheet.Content>
                 </Sheet.Container>

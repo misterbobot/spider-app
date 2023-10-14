@@ -6,62 +6,62 @@ import { TDepartment } from "../models/deparment";
         "address": "141506, Московская область, г. Солнечногорск, ул. Красная, д. 60",        "status": "открытая",
         "openHours": [
             {
-                "days": "пн",
-                "hours": "09:00-18:00"
+                days: "пн",
+                hours: "09:00-18:00"
             },
             {
-                "days": "вт",
-                "hours": "09:00-18:00"
+                days: "вт",
+                hours: "09:00-18:00"
             },
             {
-                "days": "ср",
-                "hours": "09:00-18:00"
+                days: "ср",
+                hours: "09:00-18:00"
             },
             {
-                "days": "чт",
-                "hours": "09:00-18:00"
+                days: "чт",
+                hours: "09:00-18:00"
             },
             {
-                "days": "пт",
-                "hours": "09:00-17:00"
+                days: "пт",
+                hours: "09:00-17:00"
             },
             {
-                "days": "сб",
-                "hours": "выходной"
+                days: "сб",
+                hours: "выходной"
             },
             {
-                "days": "вс",
-                "hours": "выходной"
+                days: "вс",
+                hours: "выходной"
             }
         ],
         "rko": "есть РКО",        "openHoursIndividual": [
             {
-                "days": "пн",
-                "hours": "09:00-20:00"
+                days: "пн",
+                hours: "09:00-20:00"
             },
             {
-                "days": "вт",
-                "hours": "09:00-20:00"
+                days: "вт",
+                hours: "09:00-20:00"
             },
             {
-                "days": "ср",
-                "hours": "09:00-20:00"
+                days: "ср",
+                hours: "09:00-20:00"
             },
             {
-                "days": "чт",
-                "hours": "09:00-20:00"
+                days: "чт",
+                hours: "09:00-20:00"
             },
             {
-                "days": "пт",
-                "hours": "09:00-20:00"
+                days: "пт",
+                hours: "09:00-20:00"
             },
             {
-                "days": "сб",
-                "hours": "10:00-17:00"
+                days: "сб",
+                hours: "10:00-17:00"
             },
             {
-                "days": "вс",
-                "hours": "выходной"
+                days: "вс",
+                hours: "выходной"
             }
         ],
         "officeType": "Да (Зона Привилегия)",
@@ -91,6 +91,30 @@ export const departmentMock : TDepartment = {
         {
             days: "пн",
             hours: "09:00-20:00"
+        },
+        {
+            days: "вт",
+            hours: "09:00-20:00"
+        },
+        {
+            days: "ср",
+            hours: "09:00-20:00"
+        },
+        {
+            days: "чт",
+            hours: "09:00-20:00"
+        },
+        {
+            days: "пт",
+            hours: "09:00-20:00"
+        },
+        {
+            days: "сб",
+            hours: "10:00-17:00"
+        },
+        {
+            days: "вс",
+            hours: "выходной"
         }
     ],
     officeType: "Да (Зона Привилегия)",
@@ -105,7 +129,10 @@ export const departmentMock : TDepartment = {
     myBranch: false,
     status: "открытая",
     type: 'department',
-    services: []
+    services: [],
+    workLoad: {
+        avgWaitTimeMin: 10
+    }
 }
 
 export const departmentMock2 : TDepartment = {
@@ -122,6 +149,30 @@ export const departmentMock2 : TDepartment = {
         {
             days: "пн",
             hours: "09:00-20:00"
+        },
+        {
+            days: "вт",
+            hours: "09:00-20:00"
+        },
+        {
+            days: "ср",
+            hours: "09:00-20:00"
+        },
+        {
+            days: "чт",
+            hours: "09:00-20:00"
+        },
+        {
+            days: "пт",
+            hours: "09:00-20:00"
+        },
+        {
+            days: "сб",
+            hours: "10:00-17:00"
+        },
+        {
+            days: "вс",
+            hours: "выходной"
         }
     ],
     officeType: "Да (Зона Привилегия)",
@@ -136,5 +187,33 @@ export const departmentMock2 : TDepartment = {
     myBranch: false,
     status: "открытая",
     type: 'atm',
-    services: []
+    services: [
+        {
+            id: 1,
+            name: 'Выдача наличных'
+        },
+        {
+            id: 2,
+            name: 'Пополнение счета'
+        },
+        {
+            id: 3,
+            name: 'Платежи'
+        },
+        {
+            id: 4,
+            name: 'Погашение кредита'
+        },
+        {
+            id: 5,
+            name: 'Обмен валюты'
+        },
+        {
+            id: 6,
+            name: 'Прием наличных'
+        }
+    ],
+    workLoad: {
+        avgWaitTimeMin: 5
+    }
 }
