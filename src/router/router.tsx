@@ -5,23 +5,23 @@ import {AllServicesPage, ChooseServicePage, OfflinePage} from "../pages/services
 
 export const router = createBrowserRouter([
     {
-      path: "/",
-      element: <HomePage />,
-    },
-    {
         path: "/services",
         element: <AllServicesPage />,
     },
     {
-        path: "/choose-service",
+        path: "/services/:id/choose-service",
         element: <ChooseServicePage />,
     },
     {
-        path: "/service/offline",
+        path: "/services/:id/offline",
         element: <OfflinePage />,
     },
     {
         path: "/service/online",
         element: <ChooseServicePage />,
+    },
+    {
+      path: "*",
+      element: <HomePage />,
     },
   ]);

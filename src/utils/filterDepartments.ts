@@ -14,8 +14,10 @@ export const filterDepartments = (departments: TDepartment[], filters: {
         }
         if (services.length) {
             const departmentServices = department.services.map((service) => service.id);
-            const hasService = services.every((service) => departmentServices.includes(service.id));
-            if (!hasService) {
+            const isDepartmentHasAllServices = services.every((service) => {
+                return departmentServices.includes(service.id)
+            });
+            if (!isDepartmentHasAllServices) {
                 return false;
             }
         }

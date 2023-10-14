@@ -87,7 +87,9 @@ export type TService = {
     onlineOptions: {
         isOnlineAvailable: boolean;
         onlineText?: string;
-    }
+    };
+    icon?: string;
+    avgWaitTimeMin: number;
 }
 
 export type TDepartmentWorkLoad = {
@@ -115,3 +117,8 @@ export type TDepartment = {
     services: TService[];
     workLoad: TDepartmentWorkLoad;
 }
+
+export type TDepartmentWithTravelTimeInfo = TDepartment & {
+    distance: number;
+    duration: number;
+};

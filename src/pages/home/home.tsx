@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {NavigationBar} from "../../components/navigationBar/navigationBar";
 import { Map } from '../../components/map';
 import {ServicesPage} from "../services";
 import { useDispatch } from 'react-redux';
 import { fetchServices } from '../../store/thunks/fetchServices';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 export const HomePage: React.FC = () => {
-    const [isOpen, setOpen] = useState(false);
-    const [showMap, setShowMap] = useState(true);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const dispatch = useDispatch();
 
@@ -16,19 +17,20 @@ export const HomePage: React.FC = () => {
         dispatch(fetchServices())
     }, [dispatch]);
 
-
+    const isInfoPage = location.pathname === '/info';
     return (
         <>
-            <div className="absolute z-10 bottom-10 left-[calc(50vw-100px)]">
-                <NavigationBar onClickInfo={() => setShowMap(false)} onClickMap={() => setShowMap(true)} />
+            <div className="fixed z-10 bottom-10 left-[calc(50vw-100px)]">
+                <NavigationBar
+                    onClickInfo={() => navigate('/info', {replace: true})}
+                    onClickMap={() => navigate('/map', {replace: true})}
+                    activeTab={isInfoPage ? 'info' : 'map'}
+                />
             </div>
-            {
-                showMap ? (
-                    <Map />
-                ) : (
-                    <ServicesPage />
-                )
-            }
+            <Routes>
+                <Route path='/info' element={<ServicesPage />} />
+                <Route path={'*'} element={ <Map />} />
+            </Routes>
         </>
     );
 }

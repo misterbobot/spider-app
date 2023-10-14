@@ -1,34 +1,36 @@
 import React from 'react'
-import logo from './logo.svg';
 import offline from '../../assets/offline.png';
 import online from '../../assets/online.png';
-import back from '../../assets/back.svg';
 
 import TakeServiceButton from "../../components/buttons/takeServiceButton";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import { useAppSelector } from '../../hooks/store';
+import { Header } from '../../components/header/header';
+import { NearestDepartmentsSheet } from '../../components/nearestDepartmentsSheet/nearestDepartmentsSheet';
 
 export const ChooseServicePage: React.FC = () => {
-    const navigate = useNavigate();
 
-    const goBack = () => {
-        navigate(-1);
-    }
+    const { id } = useParams();
+
+    const servicesList = useAppSelector(state => state.services.services).all
+
+    const service = servicesList.find((service) => service.id === Number(id))
+
+    const [isNearestDepartmentSheetOpened, setIsNearestDepartmentSheetOpened] = React.useState(false)
+
+    console.log('!!!!!')
 
     return (
+        <>
         <div className="w-screen bg-white px-6 pb-5 box-border">
-            <div className="w-full h-[70px] flex gap-6 items-center mb-[20px]">
-                <Link onClick={goBack} to={'/'} className="flex justify-center items-center h-8 w-8 cursor-pointer">
-                    <img src={back} alt={'logo'} height={22} width={12} />
-                </Link>
-                <img src={logo} alt={'logo'} height={33} width={90} />
-            </div>
+             <Header />
 
             <div className="flex flex-col gap-[50px]">
                 <div className="flex flex-col gap-5">
                     <div>
-                        <h1 className="text-primary text-heading-m ">Снять наличные</h1>
+                        <h1 className="text-primary text-heading-m ">{service?.name}</h1>
                         <p className="text-text-sm text-black">
-                            Доллар евро и юани рубли
+                            {service?.description}
                         </p>
                     </div>
 
@@ -40,11 +42,11 @@ export const ChooseServicePage: React.FC = () => {
                                 Услугу можно оформить из дома
                             </p>
                             <p className="text-black text-text-m">
-                                Оформите карту не выходя из дома, привезем за 3 дня, в удобное время
+                                {service?.onlineOptions.onlineText || 'Заполните коротку форму и получите услугу в удобное время'}
                             </p>
                         </div>
 
-                        <TakeServiceButton color={'black'} background={'white'} title={'Оформить онлайн'} onClick={() => undefined} />
+                        <TakeServiceButton color={'#3D6EFA'} background={'white'} title={'Оформить онлайн'} onClick={() => undefined} />
                     </div>
 
                     <div className="flex flex-col gap-4">
@@ -52,19 +54,21 @@ export const ChooseServicePage: React.FC = () => {
 
                         <div className="flex flex-col gap-2 pb-8">
                             <p className="text-black text-text-m-bold">
-                                Услугу можно оформить из дома
+                                Оформить в отделении сегодня
                             </p>
                             <p className="text-black text-text-m">
-                                Оформите карту не выходя из дома, привезем за 3 дня, в удобное время
+                                Подберем ближайшее отделение с небольшой загрузкой
                             </p>
                         </div>
 
-                        <Link to={'/service/offline'}>
+                        <Link to={``} onClick={() => setIsNearestDepartmentSheetOpened(true)}>
                             <TakeServiceButton color={'white'} background={'#3D6EFA'} title={'Найти ближайшее отделение'} onClick={() => undefined} />
                         </Link>
                     </div>
                 </div>
             </div>
         </div>
+        <NearestDepartmentsSheet onClose={() => setIsNearestDepartmentSheetOpened(false)} isOpen={isNearestDepartmentSheetOpened} service={service} />
+        </>
     );
 }

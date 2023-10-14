@@ -1,16 +1,16 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import GoogleMapReact from 'google-map-react';
 import { DepartmentSheet } from "../departmentSheet/departmentSheet";
 import { TDepartment } from "../../models/deparment";
 import activeIcon from './activeIcon.svg';
 import defaultIcon from './defaultIcon.svg';
-import { useAppDispatch, useAppSelector } from "../../hooks/store";
+import { useAppSelector } from "../../hooks/store";
 import { useGeolocation } from "@uidotdev/usehooks";
-import { fetchDepartments } from "../../store/thunks/fetchDepartments";
 import { filterDepartments } from "../../utils/filterDepartments";
 import { FiltersButton } from "../buttons/filtersButtons/filtersButton";
 import { ClearFiltersButton } from "../buttons/filtersButtons/clearFiltersButton";
 import { FiltersSheet } from "../filtersSheet/filtersSheet";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const defaultMapOptions: GoogleMapReact.MapOptions = {
   fullscreenControl: false,
@@ -20,27 +20,22 @@ const defaultMapOptions: GoogleMapReact.MapOptions = {
 
 export const Map: React.FC = () => {
 
-    const location = useGeolocation();
+    const geolocation = useGeolocation();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const defaultProps = {
       center: {
-          lat: location.latitude || 55.751715,
-          lng: location.longitude || 37.583818
+          lat: geolocation.latitude || 55.751715,
+          lng: geolocation.longitude || 37.583818
       },
       zoom: 13
   };
 
-  const departments = useAppSelector(state => state.departments.departments);
+  const departments = useAppSelector<TDepartment[]>(state => state.departments.departments);
   const filters = useAppSelector(state => state.filters.filters);
 
   const filteredDepartments = filterDepartments(departments, filters);
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    //@ts-ignore
-    dispatch(fetchDepartments())
-  }, [dispatch]);
 
   const onDepartmentClick = (department: TDepartment) => {
     setChosenDepartment(department);
@@ -54,6 +49,17 @@ export const Map: React.FC = () => {
     setIsDepartmentSheetOpen(false);
   }
 
+  const openDepaertmentFromUrl = () => {
+    if (location?.state?.departmentId) {
+      const department = departments.find(department => department.salePointName+department.distance === location?.state?.departmentId);
+      if (department) {
+        onDepartmentClick(department);
+        navigate('/map', {
+          replace: true,
+        })
+      }
+    }
+  }
 
   // @ts-ignore
   function renderMarkers(map, maps) {
@@ -101,6 +107,8 @@ export const Map: React.FC = () => {
             onGoogleApiLoaded={({map, maps}) => renderMarkers(map, maps)}
             options={defaultMapOptions }
             onDrag={closeSheet}
+            key={filteredDepartments.length}
+            onTilesLoaded={openDepaertmentFromUrl}
             >
 
             </GoogleMapReact>

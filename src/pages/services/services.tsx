@@ -1,27 +1,17 @@
 import React from 'react'
-import logo from './logo.svg';
 import {ServiceCard} from "../../components/cards/serviceCard";
 import PrimaryButton from "../../components/buttons/primaryButton";
 import {Link} from "react-router-dom";
-import back from "../../assets/back.svg";
-
-const SERVICES = [
-    {
-        title: 'Оформить карту',
-        description: 'Обновить старую карту или выпустить новую'
-    },
-    {
-        title: 'Снять наличные',
-        description: 'Доллар евро и юани рубли'
-    }
-]
+import { useAppSelector } from '../../hooks/store';
+import { Header } from '../../components/header/header';
 
 export const ServicesPage: React.FC = () => {
+
+    const services = useAppSelector(state => state.services.services).all
+
     return (
         <div className="w-screen h-screen bg-white px-6 box-border">
-            <div className="w-full h-[70px] flex gap-6 items-center mb-[20px] mt-[20px]">
-                <img src={logo} alt={'logo'} height={33} width={90} />
-            </div>
+            <Header hideBackButton />
 
             <div className="flex flex-col gap-[50px]">
                 <div className="flex flex-col gap-5">
@@ -29,8 +19,12 @@ export const ServicesPage: React.FC = () => {
 
                     <div className="flex gap-5">
                         {
-                            SERVICES.map((card) => (
-                                <ServiceCard key={card.title} {...card} />
+                            services.slice(0,2).map((service) => (
+                                <Link to={
+                                    service.onlineOptions.isOnlineAvailable ? `/services/${service.id}/choose-service` : `/services/${service.id}/offline`
+                                } >
+                                    <ServiceCard title={service.name} description={service.description || ''} />
+                                </Link>
                             ))
                         }
                     </div>

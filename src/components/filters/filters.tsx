@@ -9,8 +9,6 @@ export const Filters: React.FC = () => {
     const services = useAppSelector(state => state.services.services).all;
     const dispatch = useAppDispatch();
 
-    console.log(services)
-
     return (
         <div className="px-4">
             <div className="text-text-m-semibold text-black">Тип</div>
@@ -27,7 +25,7 @@ export const Filters: React.FC = () => {
                 }} />
             </div>
             <div className="text-text-m-semibold text-black mt-4">Услуги</div>
-            <div className="mt-2 flex gap-2 flex-wrap">
+            <div className="mt-2 flex gap-2 flex-wrap mb-6">
                 {services?.map((service, index) => <Checkbox key={index} label={service.name} checked={
                     filters.services.find(x => x.id === service.id) ? Boolean(filters.services.find(x => x.id === service.id)) : false
                 } onChange={() => {

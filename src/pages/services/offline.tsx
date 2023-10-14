@@ -1,33 +1,27 @@
 import React from 'react'
-import logo from './logo.svg';
-import offline from '../../assets/offline.png';
-import online from '../../assets/online.png';
-import back from '../../assets/back.svg';
 
 import TakeServiceButton from "../../components/buttons/takeServiceButton";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import { useAppSelector } from '../../hooks/store';
+import { Header } from '../../components/header/header';
 
 export const OfflinePage: React.FC = () => {
-    const navigate = useNavigate();
 
-    const goBack = () => {
-        navigate(-1);
-    }
+    const { id } = useParams();
+
+    const servicesList = useAppSelector(state => state.services.services).all
+
+    const service = servicesList.find((service) => service.id === Number(id))
 
     return (
         <div className="w-screen min-h-screen h-full relative bg-white px-6 pb-5 box-border">
-            <div className="w-full h-[70px] flex gap-6 items-center mb-[20px]">
-                <Link onClick={goBack} to={'/'} className="flex justify-center items-center h-8 w-8 cursor-pointer">
-                    <img src={back} alt={'logo'} height={22} width={12} />
-                </Link>
-                <img src={logo} alt={'logo'} height={33} width={90} />
-            </div>
+            <Header />
 
             <div className="h-full relative flex flex-col gap-[50px]">
                 <div>
-                    <h1 className="text-primary text-heading-m ">Снять наличные</h1>
+                    <h1 className="text-primary text-heading-m ">{service?.name}</h1>
                     <p className="text-text-sm text-black">
-                        Доллар евро и юани рубли
+                        {service?.description}
                     </p>
                 </div>
 
@@ -56,7 +50,7 @@ export const OfflinePage: React.FC = () => {
                         </div>
                     </div>
 
-                    <TakeServiceButton color={'white'} background={'#3D6EFA'} title={'Найти ближайшее отделение'} onClick={() => undefined} />
+                    <TakeServiceButton color={'white'} background={'#3D6EFA'} title={'Проложить маршрут'} onClick={() => undefined} />
                 </div>
             </div>
         </div>

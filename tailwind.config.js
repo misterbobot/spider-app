@@ -46,6 +46,7 @@ module.exports = {
         'heading-l-bold': ['64px', { fontWeight: 'Bold', lineHeight: '70px' }],
         'heading-xl': ['38px', { fontWeight: '600' }],
         'heading-xxl': ['52px', { fontWeight: '600' }],
+        'text-s-light': ['12px', { lineHeight: '15px', fontWeight: '300' }],
         'text-s': ['12px', { lineHeight: '15px' }],
         'text-s-medium': ['12px', { lineHeight: '15px', fontWeight: '500' } ],
         'text-s-bold': ['12px', { lineHeight: '15px', fontWeight: '700' }],

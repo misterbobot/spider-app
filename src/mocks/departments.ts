@@ -136,7 +136,7 @@ export const departmentMock : TDepartment = {
 }
 
 export const departmentMock2 : TDepartment = {
-    salePointName: "ДО «Солнечногорский» Филиала № 7701 Банка ВТБ (ПАО)",
+    salePointName: "Сочный банкоматик № 7701 Банка ВТБ (ПАО)",
     address: "141506, Московская область, г. Солнечногорск, ул. Красная, д. 60",
     openHours: [
         {
@@ -195,6 +195,7 @@ export const departmentMock2 : TDepartment = {
                 isOnlineAvailable: true,
                 onlineText: 'Пополнение счета'
             },
+            avgWaitTimeMin: 4
         },
         {
             id: 2,
@@ -203,6 +204,7 @@ export const departmentMock2 : TDepartment = {
                 isOnlineAvailable: true,
                 onlineText: 'Пополнение счета'
             },
+            avgWaitTimeMin: 4
         },
         {
             id: 3,
@@ -211,31 +213,8 @@ export const departmentMock2 : TDepartment = {
                 isOnlineAvailable: true,
                 onlineText: 'Пополнение счета'
             },
+            avgWaitTimeMin: 4
         },
-        {
-            id: 4,
-            name: 'Погашение кредита',
-            onlineOptions: {
-                isOnlineAvailable: true,
-                onlineText: 'Пополнение счета'
-            },
-        },
-        {
-            id: 5,
-            name: 'Обмен валюты',
-            onlineOptions: {
-                isOnlineAvailable: true,
-                onlineText: 'Пополнение счета'
-            },
-        },
-        {
-            id: 6,
-            name: 'Прием наличных',
-            onlineOptions: {
-                isOnlineAvailable: true,
-                onlineText: 'Пополнение счета'
-            },
-        }
     ],
     workLoad: {
         avgWaitTimeMin: 5

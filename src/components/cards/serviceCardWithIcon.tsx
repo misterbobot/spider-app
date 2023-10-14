@@ -3,7 +3,7 @@ import React from 'react';
 type TServiceCardWithIcon = {
     title: string;
     description: string;
-    icon: string;
+    icon?: string;
 }
 
 export const ServiceCardWithIcon = ({ title, description, icon }: TServiceCardWithIcon) => {
@@ -17,7 +17,7 @@ export const ServiceCardWithIcon = ({ title, description, icon }: TServiceCardWi
                 {description}
             </p>
 
-            <img className="absolute bottom-[-5px] right-[-10px]" src={icon} alt={'icon'} width={62} height={62} />
+            {icon && <img className="absolute bottom-[-5px] right-[-10px]" src={icon} alt={'icon'} width={62} height={62} />}
         </div>
     )
 }

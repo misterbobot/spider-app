@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import infoIcon from './info.svg';
 import mapIcon from './map.svg';
 import blueInfoIcon from './info-blue.svg';
@@ -7,10 +7,17 @@ import blueMapIcon from './map-blue.svg';
 type TNavigationBar = {
     onClickInfo: () => void;
     onClickMap: () => void;
+    activeTab?: string;
 }
 
-export const NavigationBar = ({ onClickInfo, onClickMap }: TNavigationBar) => {
-    const [activeTab, setActiveTab] = useState('map');
+export const NavigationBar = ({ onClickInfo, onClickMap, activeTab:activeTabByProps }: TNavigationBar) => {
+    const [activeTab, setActiveTab] = useState(activeTabByProps ? activeTabByProps : 'map');
+
+    useEffect(() => {
+        if (activeTabByProps) {
+            setActiveTab(activeTabByProps);
+        }
+    }, [activeTabByProps])
 
     function handleClickIcon(callBack: () => void, icon: string) {
         setActiveTab(icon);

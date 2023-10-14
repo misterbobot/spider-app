@@ -5,22 +5,24 @@ import Arrow from '../../assets/arrow-right-blue.svg';
 
 type TDepartmentShortScheduleProps = {
     department: TDepartment;
+    showLabel?: boolean;
+    showArrow?: boolean;
 }
 
-export const DepartmentShortSchedule: React.FC<TDepartmentShortScheduleProps> = ({ department }) => {
+export const DepartmentShortSchedule: React.FC<TDepartmentShortScheduleProps> = ({ department, showArrow, showLabel }) => {
     return (
         <div className="flex items-center">
             <div className="flex-1 flex flex-col">
-                <div className="text-black text-text-m-semibold">
+                { showLabel && <div className="text-black text-text-m-semibold">
                     Сегодня
-                </div>
+                </div>}
                 <div className="text-text-m-medium text-black">
                     {getCurrentDaySchedule(department)}
                 </div>
             </div>
-            <div>
+            {showArrow && <div>
                 <img src={Arrow} />
-            </div>
+            </div>}
         </div>
     );
 }
