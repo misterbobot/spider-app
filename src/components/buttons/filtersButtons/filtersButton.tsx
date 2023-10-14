@@ -12,10 +12,8 @@ export const FiltersButton: React.FC<FiltersButtonProps> = (
 ) => {
 
     return (
-        <div className="absolute top-2 z-20">
             <div className="h-12 w-12 box-border bg-white rounded-full relative" onClick={onClick}>
                 <img src={Filters} className="h-10 w-8 pt-2 ml-2"  />
             </div>
-        </div>
     );
 };

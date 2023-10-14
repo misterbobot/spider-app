@@ -83,6 +83,11 @@ export type TOpenHours = {
 export type TService = {
     id: number;
     name: string;
+    description?: string;
+    onlineOptions: {
+        isOnlineAvailable: boolean;
+        onlineText?: string;
+    }
 }
 
 export type TDepartmentWorkLoad = {

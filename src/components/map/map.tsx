@@ -1,7 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import GoogleMapReact from 'google-map-react';
 import { DepartmentSheet } from "../departmentSheet/departmentSheet";
-import { departmentMock } from "../../mocks/departments";
 import { TDepartment } from "../../models/deparment";
 import activeIcon from './activeIcon.svg';
 import defaultIcon from './defaultIcon.svg';
@@ -9,10 +8,17 @@ import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { useGeolocation } from "@uidotdev/usehooks";
 import { fetchDepartments } from "../../store/thunks/fetchDepartments";
 import { filterDepartments } from "../../utils/filterDepartments";
-import { FiltersButton } from "../buttons/filtersButton/filtersButton";
+import { FiltersButton } from "../buttons/filtersButtons/filtersButton";
+import { ClearFiltersButton } from "../buttons/filtersButtons/clearFiltersButton";
+import { FiltersSheet } from "../filtersSheet/filtersSheet";
+
+const defaultMapOptions: GoogleMapReact.MapOptions = {
+  fullscreenControl: false,
+  
+};
+
 
 export const Map: React.FC = () => {
-    const yandexMapObj = useRef(null);
 
     const location = useGeolocation();
 
@@ -39,8 +45,13 @@ export const Map: React.FC = () => {
   const onDepartmentClick = (department: TDepartment) => {
     setChosenDepartment(department);
     setTimeout(() => {
-      setIsSheetOpen(true);
+      setIsDepartmentSheetOpen(true);
     }, 100);
+  }
+
+  const closeSheet = () => {
+    setChosenDepartment(null);
+    setIsDepartmentSheetOpen(false);
   }
 
 
@@ -68,20 +79,28 @@ export const Map: React.FC = () => {
   }
 
     const [chosenDepartment, setChosenDepartment] = React.useState<TDepartment | null>(null);
-    const [isSheetOpen, setIsSheetOpen] = React.useState<boolean>(false);
+    const [isDepartmentSheetOpen, setIsDepartmentSheetOpen] = React.useState<boolean>(false);
+    const [isFiltersOpen, setIsFiltersOpen] = React.useState<boolean>(false);
 
     return (
         <div style={{ height: '100vh', width: '100%' }} className="relative">
-          <FiltersButton onClick={() => {}} />
-
+          <div className="absolute z-20 p-2 right-1 flex items-center">
+            <div className="mr-2">
+              <ClearFiltersButton />
+            </div>
+            <FiltersButton onClick={() => {setIsFiltersOpen(prev => !prev)}} />
+          </div>
           {
-            chosenDepartment && <DepartmentSheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)} department={chosenDepartment} />
+            chosenDepartment && <DepartmentSheet isOpen={isDepartmentSheetOpen} onClose={() => setIsDepartmentSheetOpen(false)} department={chosenDepartment} />
           }
+          <FiltersSheet isOpen={isFiltersOpen} onClose={() => setIsFiltersOpen(false)} />
             <GoogleMapReact
-            bootstrapURLKeys={{ key: "AIzaSyCLzsCW4Bzdpt62MfsZKyFXgNBd1lKiLQU" }}
+            bootstrapURLKeys={{ key: "AIzaSyCZm1tqhSDkAZIpZ03yodGxf6t5l1s1CXo" }}
             defaultCenter={defaultProps.center}
             defaultZoom={defaultProps.zoom}
             onGoogleApiLoaded={({map, maps}) => renderMarkers(map, maps)}
+            options={defaultMapOptions }
+            onDrag={closeSheet}
             >
 
             </GoogleMapReact>
