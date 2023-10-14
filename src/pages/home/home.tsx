@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {NavigationBar} from "../../components/navigationBar/navigationBar";
 import { Map } from '../../components/map';
+import {ServicesPage} from "../services";
 
 export const HomePage: React.FC = () => {
     const [isOpen, setOpen] = useState(false);
@@ -16,9 +17,7 @@ export const HomePage: React.FC = () => {
                 showMap ? (
                     <Map />
                 ) : (
-                    <div className="w-screen h-screen bg-white">
-
-                    </div>
+                    <ServicesPage />
                 )
             }
         </>

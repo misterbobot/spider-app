@@ -28,6 +28,7 @@ export const NavigationBar = ({ onClickInfo, onClickMap }: TNavigationBar) => {
                     )
                 }
             </div>
+
             <div className="flex justify-center" onClick={() => handleClickIcon(onClickMap, 'map')}>
                 {
                     activeTab === 'map' ? (

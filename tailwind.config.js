@@ -9,6 +9,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: '#3D6EFA',
         red: '#C32A3E',
         gray: '#9A9A9A',
         label: '#616060',
@@ -26,12 +27,12 @@ module.exports = {
         5: '5deg',
       },
       backgroundColor: {
-        primary: '#EBE7E7',
-        'base-card': '#D9D9D9',
+        primary: '#3D6EFA',
       },
       backgroundImage: {
       },
       borderColor: {
+        primary: '#3D6EFA',
         secondary: '#AFAFAF',
       },
       fontSize: {
@@ -54,7 +55,7 @@ module.exports = {
         'text-ss': ['10px', { fontWeight: '400', lineHeight: '12px' }],
         'text-sss': ['8px', { fontWeight: '400' }],
         'text-m': ['16px', { lineHeight: '20px', fontWeight: '400' }],
-        'text-m-bold': ['16px', { fontWeight: '700' }],
+        'text-m-bold': ['16px', { fontWeight: '700', lineHeight: '18px' }],
         'text-l': ['18px', { lineHeight: '22px' }],
         'accent-l': ['18px', { fontWeight: '500' }],
 
