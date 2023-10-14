@@ -8,7 +8,7 @@ type TServiceCardWithIcon = {
 
 export const ServiceCardWithIcon = ({ title, description, icon }: TServiceCardWithIcon) => {
     return (
-        <div className="flex flex-col relative overflow-hidden p-3 gap-[10px] rounded-5 w-[calc(50%-10px)] h-[175px] border border-solid border-primary">
+        <div className="flex flex-col relative overflow-hidden p-3 gap-[10px] rounded-5 h-[175px] border border-solid border-primary">
             <p className="text-primary text-text-m-bold m-0">
                 {title}
             </p>

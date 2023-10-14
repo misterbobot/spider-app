@@ -2,6 +2,8 @@ import React from 'react'
 import logo from './logo.svg';
 import {ServiceCard} from "../../components/cards/serviceCard";
 import PrimaryButton from "../../components/buttons/primaryButton";
+import {Link} from "react-router-dom";
+import back from "../../assets/back.svg";
 
 const SERVICES = [
     {
@@ -17,7 +19,7 @@ const SERVICES = [
 export const ServicesPage: React.FC = () => {
     return (
         <div className="w-screen h-screen bg-white px-6 box-border">
-            <div className="w-full h-[60px] flex items-center mb-[50px]">
+            <div className="w-full h-[70px] flex gap-6 items-center mb-[20px] mt-[20px]">
                 <img src={logo} alt={'logo'} height={33} width={90} />
             </div>
 
@@ -33,7 +35,9 @@ export const ServicesPage: React.FC = () => {
                         }
                     </div>
 
-                    <PrimaryButton disabled={false} title={"Смотреть все"} onClick={() => undefined} />
+                    <Link to={'/services'}>
+                        <PrimaryButton disabled={false} title={"Смотреть все"} onClick={() => undefined} />
+                    </Link>
                 </div>
 
                 <div className="flex flex-col gap-10">
@@ -49,7 +53,7 @@ export const ServicesPage: React.FC = () => {
 
                     <div className="flex flex-col gap-4">
                         <input className="w-full h-[60px] p-4 border border-solid border-primary rounded-10" type="text" placeholder="Ваш запрос"/>
-                        <PrimaryButton disabled={false} title={"Смотреть все"} onClick={() => undefined} />
+                        <PrimaryButton disabled={false} title={"Далее"} onClick={() => undefined} />
                     </div>
                 </div>
             </div>

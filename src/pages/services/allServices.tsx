@@ -1,11 +1,12 @@
 import React from 'react'
 import logo from './logo.svg';
-import PrimaryButton from "../../components/buttons/primaryButton";
 import wallet from '../../assets/wallet.png';
 import cards from '../../assets/cards.png';
 import house from '../../assets/house.png';
 import report from '../../assets/report.png';
 import {ServiceCardWithIcon} from "../../components/cards/serviceCardWithIcon";
+import {Link, useNavigate} from "react-router-dom";
+import back from "../../assets/back.svg";
 
 const SERVICES = [
     {
@@ -31,9 +32,18 @@ const SERVICES = [
 ]
 
 export const AllServicesPage: React.FC = () => {
+    const navigate = useNavigate();
+
+    const goBack = () => {
+        navigate(-1);
+    }
+
     return (
         <div className="w-screen h-screen bg-white px-6 box-border">
-            <div className="w-full h-[60px] flex items-center mb-[50px]">
+            <div className="w-full h-[70px] flex gap-6 items-center mb-[20px]">
+                <Link onClick={goBack} to={'/'} className="flex justify-center items-center h-8 w-8 cursor-pointer">
+                    <img src={back} alt={'logo'} height={22} width={12} />
+                </Link>
                 <img src={logo} alt={'logo'} height={33} width={90} />
             </div>
 
@@ -44,7 +54,9 @@ export const AllServicesPage: React.FC = () => {
                     <div className="flex gap-5 flex-wrap justify-center">
                         {
                             SERVICES.map((card) => (
-                                <ServiceCardWithIcon key={card.title} {...card} />
+                                <Link className="w-[calc(50%-10px)]" key={card.title} to={'/choose-service'}>
+                                    <ServiceCardWithIcon {...card} />
+                                </Link>
                             ))
                         }
                     </div>

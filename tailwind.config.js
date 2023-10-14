@@ -19,9 +19,7 @@ module.exports = {
         top_bg: 'top -60px',
       },
       boxShadow: {
-        primary: '0px 4px 7px rgba(0, 0, 0, 0.08)',
-        active: '0px 5px 24px rgba(0, 0, 0, 0.16)',
-        orange: '0px 1px 12px rgba(255, 100, 51, 0.7)',
+        card: '-4px -4px 10px rgba(0, 0, 0, 0.05), 4px 4px 10px rgba(0, 0, 0, 0.05)',
       },
       rotate: {
         10: '10deg',
