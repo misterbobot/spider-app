@@ -18,14 +18,14 @@ export const Filters: React.FC = () => {
                         type: filters.type === 'atm' ? null : 'atm'
                     }))
                 }} />
-                <Checkbox label="Отделения" checked={filters.type === 'department'} onChange={() => {
+                <Checkbox label="Отделения" checked={filters.type === 'office'} onChange={() => {
                     dispatch(setFilters({
-                        type: filters.type === 'department' ? null : 'department'
+                        type: filters.type === 'office' ? null : 'office'
                     }))
                 }} />
             </div>
             <div className="text-text-m-semibold text-black mt-4">Услуги</div>
-            <div className="mt-2 flex gap-2 flex-wrap mb-6">
+            <div className="mt-2 flex gap-2 flex-wrap mb-6 max-h-[300px] overflow-scroll">
                 {services?.map((service, index) => <Checkbox key={index} label={service.name} checked={
                     filters.services.find(x => x.id === service.id) ? Boolean(filters.services.find(x => x.id === service.id)) : false
                 } onChange={() => {

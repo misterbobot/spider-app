@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import GoogleMapReact from 'google-map-react';
 import { DepartmentSheet } from "../departmentSheet/departmentSheet";
 import { TDepartment } from "../../models/deparment";
@@ -11,6 +11,10 @@ import { FiltersButton } from "../buttons/filtersButtons/filtersButton";
 import { ClearFiltersButton } from "../buttons/filtersButtons/clearFiltersButton";
 import { FiltersSheet } from "../filtersSheet/filtersSheet";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ListButton } from "../listButton/listButton";
+import { DepartmentsListBottomSheet } from "../departmentsListBottomSheet/departmentsListBottomSheet";
+import blueDot from '../../assets/bluedot.png'
+import navigateIcon from '../../assets/navigate.png'
 
 const defaultMapOptions: GoogleMapReact.MapOptions = {
   fullscreenControl: false,
@@ -24,20 +28,16 @@ export const Map: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const defaultProps = {
-      center: {
-          lat: geolocation.latitude || 55.751715,
-          lng: geolocation.longitude || 37.583818
-      },
-      zoom: 13
-  };
 
   const departments = useAppSelector<TDepartment[]>(state => state.departments.departments);
   const filters = useAppSelector(state => state.filters.filters);
+  const mapRef = useRef<GoogleMapReact | null>(null);
+  const userMarketRef = useRef< unknown | null>(null);
 
   const filteredDepartments = filterDepartments(departments, filters);
 
   const onDepartmentClick = (department: TDepartment) => {
+    console.log(department)
     setChosenDepartment(department);
     setTimeout(() => {
       setIsDepartmentSheetOpen(true);
@@ -51,7 +51,7 @@ export const Map: React.FC = () => {
 
   const openDepaertmentFromUrl = () => {
     if (location?.state?.departmentId) {
-      const department = departments.find(department => department.salePointName+department.distance === location?.state?.departmentId);
+      const department = departments.find(department => department.id === location?.state?.departmentId);
       if (department) {
         onDepartmentClick(department);
         navigate('/map', {
@@ -61,8 +61,46 @@ export const Map: React.FC = () => {
     }
   }
 
+  const userLocation = useMemo(() => {
+    return {
+        lat: geolocation.latitude || 55.751715,
+        lng: geolocation.longitude || 37.583818
+    }}, [geolocation.latitude, geolocation.longitude])
+
+    const defaultProps = {
+      center: {
+          lat: userLocation.lat,
+          lng: userLocation.lng
+      },
+      zoom: 13
+  };
+
+  useEffect(() => {
+    // @ts-ignore
+    userMarketRef.current?.setMap(null);
+
+    // @ts-ignore
+    const userLocationMarker = new window.google.maps.Marker({
+      icon: blueDot,
+      map: mapRef.current,
+      position: {
+        lat: userLocation.lat,
+        lng: userLocation.lng
+      },
+    });
+
+    userMarketRef.current = userLocationMarker;
+  }, [userLocation.lat, userLocation.lng]);
+
+  const centerOnUserPosition = useCallback(() => {
+    // @ts-ignore
+    mapRef.current?.panTo(userLocation);
+  }, [userLocation])
+
   // @ts-ignore
   function renderMarkers(map, maps) {
+
+      mapRef.current = map;
     
       filteredDepartments.map((deparment) => {
         const {type, latitude, longitude} = deparment;
@@ -82,23 +120,46 @@ export const Map: React.FC = () => {
 
           return marker;
       })
+
+      const userLocationMarker = new maps.Marker({
+        icon: blueDot,
+        map,
+        position: {
+          lat: userLocation.lat,
+          lng: userLocation.lng
+        },
+      });
+      userMarketRef.current = userLocationMarker;
   }
 
     const [chosenDepartment, setChosenDepartment] = React.useState<TDepartment | null>(null);
     const [isDepartmentSheetOpen, setIsDepartmentSheetOpen] = React.useState<boolean>(false);
+    const [isDepartmentsListOpen, setIsDepartmentsListOpen] = React.useState<boolean>(false);
     const [isFiltersOpen, setIsFiltersOpen] = React.useState<boolean>(false);
 
     return (
         <div style={{ height: '100vh', width: '100%' }} className="relative">
-          <div className="absolute z-20 p-2 right-1 flex items-center">
+          <div className="absolute z-20 p-2 right-0 flex items-center">
             <div className="mr-2">
               <ClearFiltersButton />
             </div>
-            <FiltersButton onClick={() => {setIsFiltersOpen(prev => !prev)}} />
+            <FiltersButton onClick={() => {
+              setIsFiltersOpen(prev => !prev)
+            }} />
+            
+          </div>
+          <div className="absolute z-20 p-2 right-0 bottom-[120px] flex items-center">
+            <ListButton onClick={() => {setIsDepartmentsListOpen(prev => !prev)}} />
+          </div>
+          <div className="absolute z-20 p-2 right-0 bottom-[180px] flex items-center">
+          <div className="h-12 w-12 box-border bg-white rounded-full relative" onClick={centerOnUserPosition}>
+                <img src={navigateIcon} className="h-10 w-8 pt-2 ml-2"  />
+            </div>
           </div>
           {
             chosenDepartment && <DepartmentSheet isOpen={isDepartmentSheetOpen} onClose={() => setIsDepartmentSheetOpen(false)} department={chosenDepartment} />
           }
+          <DepartmentsListBottomSheet openDepartmentSheet={(dep) => onDepartmentClick(dep)} isOpen={isDepartmentsListOpen} onClose={() => setIsDepartmentsListOpen(false)} departments={filteredDepartments} />
           <FiltersSheet isOpen={isFiltersOpen} onClose={() => setIsFiltersOpen(false)} />
             <GoogleMapReact
             bootstrapURLKeys={{ key: "AIzaSyCZm1tqhSDkAZIpZ03yodGxf6t5l1s1CXo" }}

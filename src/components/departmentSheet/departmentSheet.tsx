@@ -12,7 +12,7 @@ type DepartmentSheetProps = {
 export const DepartmentSheet: React.FC<DepartmentSheetProps> = ({department, isOpen, onClose}) => {
     return (
         <>
-            <Sheet isOpen={isOpen} onClose={onClose} detent="content-height">
+            <Sheet isOpen={isOpen} onClose={onClose} detent="content-height" >
                 <Sheet.Container >
                     <Sheet.Content >
                         <Department department={department} />

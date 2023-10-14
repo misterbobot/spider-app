@@ -23,7 +23,10 @@ export const getDayName = (day: number): string => {
 
 export const getCurrentDaySchedule = (department: TDepartment): string => {
     const today = new Date().getDay();
-    const currentDaySchedule = department.openHoursIndividual.find((item) => {
+    if (!department.openHours) {
+        return 'Работает как обычно'
+    }
+    const currentDaySchedule = department.openHours.find((item) => {
         return item.days.toLowerCase().includes(getDayName(today));
     });
 

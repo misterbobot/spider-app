@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo } from "react";
-import { TService } from "../../models/deparment";
+import React, { useMemo } from "react";
+import { TDepartment, TService } from "../../models/deparment";
 import Sheet from 'react-modal-sheet';
 import { ServiceWaitTimeLabel } from "../serviceWaitTimeLabel/serviceWaitTimeLabel";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelectTravelOption } from "../useSelectTravelOption/useSelectTravelOption";
 import { useDepartmentsWithTravelDistance } from "../../hooks/useDepartmentsWithTravelDistance";
 import { useGeolocation } from "@uidotdev/usehooks";
+import { firstNNearestDepartments } from "../../utils/firstNNearestDepartments";
 
 type TNearestDepartmentsSheetProps = {
     service?: TService;
@@ -24,7 +25,11 @@ export const NearestDepartmentsSheet: React.FC<TNearestDepartmentsSheetProps> = 
     }
 ) => {
 
-    const departments = useAppSelector((state) => state.departments.departments);
+    const departments: TDepartment[] = useAppSelector((state) => state.departments.departments);
+
+    const departmentsWithServiceProvided = useMemo(() => {
+        return departments.filter(department => department.services.find(departmentService => departmentService === service?.id))
+    }, [departments, service])
 
     const geolocation = useGeolocation();
 
@@ -47,10 +52,15 @@ export const NearestDepartmentsSheet: React.FC<TNearestDepartmentsSheetProps> = 
         }
     }, [geolocation.latitude, geolocation.longitude])
 
-    console.log(travelMode);
+    const firstNearestDepartments = useMemo(() => {
+        return firstNNearestDepartments(departmentsWithServiceProvided, 15, {
+          lat: userLocation.lat,  
+          lng: userLocation.lng
+        });
+    }, [departmentsWithServiceProvided, userLocation.lat, userLocation.lng])
 
     const {loading, departmentsWithTravelDistance} = useDepartmentsWithTravelDistance({
-        departments,
+        departments: firstNearestDepartments,
         userLocation:userLocation,
         travelMode: travelMode
     } );
@@ -71,7 +81,7 @@ export const NearestDepartmentsSheet: React.FC<TNearestDepartmentsSheetProps> = 
                                         {service.name}
                                     </div>
                                     <div className="mb-2">
-                                        <ServiceWaitTimeLabel waitTime={service.avgWaitTimeMin} />
+                                        <ServiceWaitTimeLabel waitTime={service.averageWaitTime} />
                                     </div>
                                 </div>
                             )}
@@ -89,7 +99,7 @@ export const NearestDepartmentsSheet: React.FC<TNearestDepartmentsSheetProps> = 
                                     }))
                                     navigate('/map', {
                                         state: {
-                                            departmentId: deparment.salePointName+deparment.distance
+                                            departmentId: deparment.id
                                         }
                                     })
                                     

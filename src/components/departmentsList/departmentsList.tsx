@@ -3,6 +3,7 @@ import { TDepartment, TDepartmentWithTravelTimeInfo } from "../../models/deparme
 import { WideDepartmentCard } from "../wideDepartmentCard/wideDepartmentCard";
 import { Divider } from "../divider/divider";
 import { sortDeparmentsByMinimumAwaitTime } from "../../utils/sortDeparmentsByMinimumAwaitTime";
+import { useAppSelector } from "../../hooks/store";
 
 type TDepartmentsListProps = {
     departments: TDepartmentWithTravelTimeInfo[];
@@ -11,10 +12,12 @@ type TDepartmentsListProps = {
 
 export const DepartmentsList: React.FC<TDepartmentsListProps> = ({departments, onDepartmentClick}) => {
 
-    const sortedDepartments = sortDeparmentsByMinimumAwaitTime(departments);
+    const services = useAppSelector(state => state.services.services).all;
+
+    const sortedDepartments = sortDeparmentsByMinimumAwaitTime(departments, services);
 
     return (
-        <>
+        <div className="max-h-[60vh] overflow-scroll">
             {sortedDepartments.map((department) => (
                 <>
                     <Divider />
@@ -23,6 +26,6 @@ export const DepartmentsList: React.FC<TDepartmentsListProps> = ({departments, o
                     </div>
                 </>
             ))}
-        </>
+        </div>
     );
 } 

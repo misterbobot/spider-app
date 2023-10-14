@@ -1,10 +1,11 @@
-import { TDepartmentWithTravelTimeInfo } from "../models/deparment";
+import { TDepartmentWithTravelTimeInfo, TService } from "../models/deparment";
+import { calculateDepartmentAvgWaitTime } from "./calculateDepartmentAvgWaitTime";
 
-export const sortDeparmentsByMinimumAwaitTime = (departments:TDepartmentWithTravelTimeInfo[]) => {
+export const sortDeparmentsByMinimumAwaitTime = (departments:TDepartmentWithTravelTimeInfo[], services: TService[]) => {
     return (
         departments.sort((a, b) => {
-            const aAwaitTime = a.duration + a.workLoad.avgWaitTimeMin;
-            const bAwaitTime = b.duration + b.workLoad.avgWaitTimeMin;
+            const aAwaitTime = calculateDepartmentAvgWaitTime(a, services);
+            const bAwaitTime = calculateDepartmentAvgWaitTime(b, services);
 
             if (aAwaitTime < bAwaitTime) {
                 return -1;

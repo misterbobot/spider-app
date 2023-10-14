@@ -18,8 +18,6 @@ export const ChooseServicePage: React.FC = () => {
 
     const [isNearestDepartmentSheetOpened, setIsNearestDepartmentSheetOpened] = React.useState(false)
 
-    console.log('!!!!!')
-
     return (
         <>
         <div className="w-screen bg-white px-6 pb-5 box-border">
@@ -42,11 +40,11 @@ export const ChooseServicePage: React.FC = () => {
                                 Услугу можно оформить из дома
                             </p>
                             <p className="text-black text-text-m">
-                                {service?.onlineOptions.onlineText || 'Заполните коротку форму и получите услугу в удобное время'}
+                                {service?.onlineText || 'Заполните коротку форму и получите услугу в удобное время'}
                             </p>
                         </div>
 
-                        <TakeServiceButton color={'#3D6EFA'} background={'white'} title={'Оформить онлайн'} onClick={() => undefined} />
+                        <TakeServiceButton color={'#3D6EFA'} background={'white'} title={'Оформить онлайн'} onClick={() => window.open('https://www.vtb.ru/personal/online-servisy/vtb-online/', '_blank')} />
                     </div>
 
                     <div className="flex flex-col gap-4">
