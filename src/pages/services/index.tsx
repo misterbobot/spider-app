@@ -1,3 +1,4 @@
 import { ServicesPage } from './services';
+import { AllServicesPage } from './allServices';
 
-export { ServicesPage }
+export { ServicesPage, AllServicesPage };

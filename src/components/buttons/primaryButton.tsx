@@ -11,7 +11,7 @@ export default function PrimaryButton({ title, onClick }: TPrimaryButton) {
     return (
         <button
             type="submit"
-            classпше Name="flex gap-4 bg-primary justify-center items-center w-full rounded-8 text-heading-ss-bold h-[60px]"
+            className="flex gap-4 bg-primary justify-center items-center w-full rounded-8 text-heading-ss-bold h-[60px]"
             onClick={onClick}
         >
             {title}
