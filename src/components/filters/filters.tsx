@@ -28,9 +28,11 @@ export const Filters: React.FC = () => {
             </div>
             <div className="text-text-m-semibold text-black mt-4">Услуги</div>
             <div className="mt-2 flex gap-2 flex-wrap">
-                {services?.map((service, index) => <Checkbox key={index} label={service.name} checked={Boolean(filters.services.find(x => x.id === service.id))} onChange={() => {
+                {services?.map((service, index) => <Checkbox key={index} label={service.name} checked={
+                    filters.services.find(x => x.id === service.id) ? Boolean(filters.services.find(x => x.id === service.id)) : false
+                } onChange={() => {
                     dispatch(setFilters({
-                        services: filters.services.find(x => x.id === service.id) ? Boolean(filters.services.find(x => x.id === service.id)) : [...filters.services, service.id]
+                        services: filters.services.find(x => x.id === service.id) ? filters.services.filter(x => x.id !== service.id) : [...filters.services, service]
                     }))
                 }} />)}
             </div>
