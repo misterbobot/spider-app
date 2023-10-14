@@ -6,23 +6,23 @@ import { TDepartment } from "../../models/deparment";
 import activeIcon from './activeIcon.svg';
 import defaultIcon from './defaultIcon.svg';
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
+import { useGeolocation } from "@uidotdev/usehooks";
 import { fetchDepartments } from "../../store/thunks/fetchDepartments";
 
 export const Map: React.FC = () => {
     const yandexMapObj = useRef(null);
 
+    const location = useGeolocation();
+
     const defaultProps = {
       center: {
-          lat: 55.751715,
-          lng: 37.583818
+          lat: location.latitude || 55.751715,
+          lng: location.longitude || 37.583818
       },
-      zoom: 11
+      zoom: 13
   };
 
   const departments = useAppSelector(state => state.departments.departments);
-  
-  console.log(departments);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -32,7 +32,9 @@ export const Map: React.FC = () => {
 
   const onDepartmentClick = (department: TDepartment) => {
     setChosenDepartment(department);
-    setIsSheetOpen(true);
+    setTimeout(() => {
+      setIsSheetOpen(true);
+    }, 100);
   }
 
 

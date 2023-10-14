@@ -5,6 +5,7 @@ import { DepartmentTitle } from "../departmentTitle/departmentTitle";
 import { DepartmentWaitTime } from "../departmentWaitTime/departmentWaitTime";
 import { DepartmentShortSchedule } from "../departmentShortSchedule/departmentShortSchedule";
 import { DepartmentServicesLineList } from "../departmentServicesLineList/departmentServicesLineList";
+import { RouteToDepartmentButton } from "../routeToDepartmentButton/routeToDepartmentButton";
 
 type DepartmentProps = {
     department: TDepartment;
@@ -22,6 +23,9 @@ export const AtmDepartment: React.FC<DepartmentProps> = ({ department }) => {
                 </div>
                 <div className="mt-3">
                     <DepartmentServicesLineList department={department} />
+                </div>
+                <div className="mt-15">
+                    <RouteToDepartmentButton department={department} />
                 </div>
             </div>
         </>

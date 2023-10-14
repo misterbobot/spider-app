@@ -51,6 +51,7 @@ module.exports = {
         'text-s-bold': ['12px', { lineHeight: '15px', fontWeight: '700' }],
         'text-s-height': ['12px', { lineHeight: '20px' }],
         'text-sm': ['14px', { lineHeight: '18px' }],
+        'text-sm-semibold': ['14px', { lineHeight: '18px',  fontWeight: '600' }],
         'text-sm-bold': ['14px', { lineHeight: '18px', fontWeight: '700' }],
         'text-ss': ['10px', { fontWeight: '400', lineHeight: '12px' }],
         'text-sss': ['8px', { fontWeight: '400' }],
