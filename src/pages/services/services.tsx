@@ -47,7 +47,9 @@ export const ServicesPage: React.FC = () => {
 
                     <div className="flex flex-col gap-4">
                         <input className="w-full h-[60px] p-4 border border-solid border-primary rounded-10" type="text" placeholder="Ваш запрос"/>
-                        <PrimaryButton disabled={false} title={"Далее"} onClick={() => undefined} />
+                        <Link to={'/chat'}>
+                            <PrimaryButton disabled={false} title={"Далее"} onClick={() => undefined} />
+                        </Link>
                     </div>
                 </div>
             </div>

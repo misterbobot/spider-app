@@ -2,6 +2,7 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { HomePage } from "../pages/home";
 import {AllServicesPage, ChooseServicePage, OfflinePage} from "../pages/services";
+import {ChatPage} from "../pages/services/chat";
 
 export const router = createBrowserRouter([
     {
@@ -23,5 +24,9 @@ export const router = createBrowserRouter([
     {
       path: "*",
       element: <HomePage />,
+    },
+    {
+        path: "/chat",
+        element: <ChatPage />,
     },
   ]);
