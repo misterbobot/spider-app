@@ -1,10 +1,12 @@
 import thunk from "redux-thunk"
 import { configureStore } from '@reduxjs/toolkit'
 import departmentsReducer from './slices/departmentsSlice'
+import filtersReducer from './slices/filtersSlice'
 
 export const store = configureStore({
   reducer: {
-    departments: departmentsReducer
+    departments: departmentsReducer,
+    filters: filtersReducer
   },
   middleware: [thunk]
 })

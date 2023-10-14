@@ -8,6 +8,8 @@ import defaultIcon from './defaultIcon.svg';
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { useGeolocation } from "@uidotdev/usehooks";
 import { fetchDepartments } from "../../store/thunks/fetchDepartments";
+import { filterDepartments } from "../../utils/filterDepartments";
+import { FiltersButton } from "../buttons/filtersButton/filtersButton";
 
 export const Map: React.FC = () => {
     const yandexMapObj = useRef(null);
@@ -23,6 +25,10 @@ export const Map: React.FC = () => {
   };
 
   const departments = useAppSelector(state => state.departments.departments);
+  const filters = useAppSelector(state => state.filters.filters);
+
+  const filteredDepartments = filterDepartments(departments, filters);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -41,7 +47,7 @@ export const Map: React.FC = () => {
   // @ts-ignore
   function renderMarkers(map, maps) {
     
-      departments.map((deparment) => {
+      filteredDepartments.map((deparment) => {
         const {type, latitude, longitude} = deparment;
           const marker = new maps.Marker({
               position: {
@@ -65,12 +71,14 @@ export const Map: React.FC = () => {
     const [isSheetOpen, setIsSheetOpen] = React.useState<boolean>(false);
 
     return (
-        <div style={{ height: '100vh', width: '100%' }}>
+        <div style={{ height: '100vh', width: '100%' }} className="relative">
+          <FiltersButton onClick={() => {}} />
+
           {
             chosenDepartment && <DepartmentSheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)} department={chosenDepartment} />
           }
             <GoogleMapReact
-            bootstrapURLKeys={{ key: "" }}
+            bootstrapURLKeys={{ key: "AIzaSyCLzsCW4Bzdpt62MfsZKyFXgNBd1lKiLQU" }}
             defaultCenter={defaultProps.center}
             defaultZoom={defaultProps.zoom}
             onGoogleApiLoaded={({map, maps}) => renderMarkers(map, maps)}
