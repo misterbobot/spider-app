@@ -1,16 +1,32 @@
 import React from 'react'
 import logo from './logo.svg';
-import {ServiceCard} from "../../components/cards/serviceCard";
 import PrimaryButton from "../../components/buttons/primaryButton";
+import wallet from '../../assets/wallet.png';
+import cards from '../../assets/cards.png';
+import house from '../../assets/house.png';
+import report from '../../assets/report.png';
+import {ServiceCardWithIcon} from "../../components/cards/serviceCardWithIcon";
 
 const SERVICES = [
     {
-        title: 'Оформить карту',
-        description: 'Обновить старую карту или выпустить новую'
+        title: 'Снять наличные',
+        description: 'Доллар евро и юани рубли',
+        icon: wallet
     },
     {
-        title: 'Снять наличные',
-        description: 'Доллар евро и юани рубли'
+        title: 'Оформить карту',
+        description: 'Обновить старую карту или выпустить новую',
+        icon: report
+    },
+    {
+        title: 'Восстановить доступ',
+        description: 'Потеряли карту или забыли пароль',
+        icon: cards
+    },
+    {
+        title: 'Взять ипотеку',
+        description: 'Купить квартиру, дом или апартаменты',
+        icon: house
     }
 ]
 
@@ -25,31 +41,12 @@ export const AllServicesPage: React.FC = () => {
                 <div className="flex flex-col gap-5">
                     <h1 className="text-black text-heading-m">Услуги</h1>
 
-                    <div className="flex gap-5">
+                    <div className="flex gap-5 flex-wrap justify-center">
                         {
                             SERVICES.map((card) => (
-                                <ServiceCard key={card.title} {...card} />
+                                <ServiceCardWithIcon key={card.title} {...card} />
                             ))
                         }
-                    </div>
-
-                    <PrimaryButton disabled={false} title={"Смотреть все"} onClick={() => undefined} />
-                </div>
-
-                <div className="flex flex-col gap-10">
-                    <div className="flex flex-col gap-2">
-                        <h2 className="text-black text-heading-m m-0">
-                            Получить услугу
-                        </h2>
-
-                        <p className="text-text-m text-black m-0">
-                            Наш искуственный интеллект поможет решить любую вашу проблему
-                        </p>
-                    </div>
-
-                    <div className="flex flex-col gap-4">
-                        <input className="w-full h-[60px] p-4 border border-solid border-primary rounded-10" type="text" placeholder="Ваш запрос"/>
-                        <PrimaryButton disabled={false} title={"Смотреть все"} onClick={() => undefined} />
                     </div>
                 </div>
             </div>

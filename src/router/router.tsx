@@ -1,7 +1,7 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { HomePage } from "../pages/home";
-import {ServicesPage} from "../pages/services";
+import {AllServicesPage} from "../pages/services";
 
 export const router = createBrowserRouter([
     {
@@ -10,6 +10,6 @@ export const router = createBrowserRouter([
     },
     {
         path: "/services",
-        element: <ServicesPage />,
+        element: <AllServicesPage />,
     },
   ]);
