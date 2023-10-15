@@ -15,6 +15,6 @@ export const calculateDepartmentAvgWaitTime = (department: TDepartment, services
         return acc + service.averageWaitTime;
     }, 0);
 
-    return waitSum / department.serviceStaffAmount;
+    return Math.round(waitSum / department.serviceStaffAmount);
 
 }

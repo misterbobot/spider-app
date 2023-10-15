@@ -1,13 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
+import { TDepartment, TTicket } from '../../models/deparment';
+
+type DepartmentsSliceState = {
+    departments: TDepartment[];
+    isLoading: boolean;
+    error: any;
+    userTicket: TTicket | null;
+}
+
+const initialState: DepartmentsSliceState = {
+    departments: [],
+    isLoading: false,
+    error: null,
+    userTicket: null
+};
 
 export const departmentsSlice = createSlice({
     name: 'departments',
-    initialState: {
-        departments: [],
-        isLoading: false,
-        error: null
-    },
+    initialState: initialState,
     reducers: {
         setDepartments: (state, action: PayloadAction<any>) => {
             state.departments = action.payload
@@ -17,6 +28,9 @@ export const departmentsSlice = createSlice({
         },
         setError: (state, action: PayloadAction<any>) => {
             state.error = action.payload
+        },
+        setUserTicket: (state, action: PayloadAction<TTicket | null>) => {
+            state.userTicket = action.payload
         }
     }
 })
@@ -25,6 +39,6 @@ export const selectDepartments = (state: RootState) => state.departments.departm
 export const selectIsLoading = (state: RootState) => state.departments.isLoading
 export const selectError = (state: RootState) => state.departments.error
 
-export const { setDepartments, setIsLoading, setError } = departmentsSlice.actions;
+export const { setDepartments, setIsLoading, setError, setUserTicket } = departmentsSlice.actions;
 
 export default departmentsSlice.reducer;

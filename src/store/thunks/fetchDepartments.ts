@@ -1,12 +1,17 @@
+import { TDepartment } from '../../models/deparment'
+import { findUserTicketInDeps } from '../../utils/findUserTicketInDeps'
 import { departmentsSlice } from '../slices/departmentsSlice'
 
 export const fetchDepartments = () => async (dispatch: any) => {
     dispatch(departmentsSlice.actions.setIsLoading(true))
     try {
         const response = await fetch('http://84.252.129.66:8000/get-departments/')
-        const data = await response.json()
+        const data = await response.json() as TDepartment[];
+
+        const userTicket = findUserTicketInDeps(data);
 
         dispatch(departmentsSlice.actions.setDepartments(data))
+        dispatch(departmentsSlice.actions.setUserTicket(userTicket))
     } catch (error) {
         dispatch(departmentsSlice.actions.setError(error))
     } finally {

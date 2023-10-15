@@ -33,6 +33,7 @@ module.exports = {
       borderColor: {
         primary: '#3D6EFA',
         secondary: '#AFAFAF',
+        red: '#C32A3E',
       },
       fontSize: {
         'heading-ss': ['18px', { fontWeight: '500' }],

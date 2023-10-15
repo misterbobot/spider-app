@@ -6,7 +6,10 @@ import { RouteToDepartmentButton } from "../routeToDepartmentButton/routeToDepar
 import { TravelTimeToDepartment } from "../travelTimeToDepartment";
 
 type TWideDepartmentCardProps = {
-    department: TDepartmentWithTravelTimeInfo;
+    department: TDepartment & {
+        distance?: number;
+        duration?: number;
+    };
 }
 export const WideDepartmentCard: React.FC<TWideDepartmentCardProps> = ({department}) => {
     return (
@@ -23,9 +26,10 @@ export const WideDepartmentCard: React.FC<TWideDepartmentCardProps> = ({departme
                 </div>
             </div>
             <div className="flex flex-col items-end">
-                <div className="mb-2">
+                {typeof department.distance !=='undefined' && typeof department.duration !=='undefined' && <div className="mb-2">
+                    {/** @ts-ignore */}
                     <TravelTimeToDepartment department={department} />
-                </div>
+                </div>}
                 <RouteToDepartmentButton department={department} />
             </div>
         </div>

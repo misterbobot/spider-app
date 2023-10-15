@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { HomePage } from "../pages/home";
 import {AllServicesPage, ChooseServicePage, OfflinePage} from "../pages/services";
 import {ChatPage} from "../pages/services/chat";
+import { EQueuePage } from "../pages/equeue/equeue";
 
 export const router = createBrowserRouter([
     {

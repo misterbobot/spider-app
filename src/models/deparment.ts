@@ -19,6 +19,8 @@ export type TTicket = {
     id: number;
     user_id: number;
     service: number;
+    salePoint: number;
+    label: string;
 }
 
 export type TDepartment = {

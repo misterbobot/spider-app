@@ -8,6 +8,7 @@ import { store } from './store/store';
 import { Provider, useDispatch } from 'react-redux'
 import { fetchServices } from './store/thunks/fetchServices';
 import { fetchDepartments } from './store/thunks/fetchDepartments';
+import { genrateAndStoreUID } from './utils/generateUID';
 
 function App() {
 
@@ -22,6 +23,7 @@ const Content: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+      genrateAndStoreUID();
       //@ts-ignore
       dispatch(fetchDepartments())
       //@ts-ignore

@@ -5,6 +5,7 @@ import {ServicesPage} from "../services";
 import { useDispatch } from 'react-redux';
 import { fetchServices } from '../../store/thunks/fetchServices';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { EQueuePage } from '../equeue/equeue';
 
 export const HomePage: React.FC = () => {
     const navigate = useNavigate();
@@ -31,6 +32,7 @@ export const HomePage: React.FC = () => {
             </div>
             <Routes>
                 <Route path='/info' element={<ServicesPage />} />
+                <Route path='/queue' element={<EQueuePage />} />
                 <Route path={'*'} element={ <Map />} />
             </Routes>
         </>

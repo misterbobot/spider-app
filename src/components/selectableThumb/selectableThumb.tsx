@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 
 type TSelectableThumbProps = {
+    text?: string,
     icon: string;
     activeIcon: string;
     isSelected: boolean;
@@ -11,11 +12,13 @@ export const SelectableThumb: React.FC<TSelectableThumbProps> = ({
     icon,
     isSelected,
     onSelect,
-    activeIcon
+    activeIcon,
+    text
 }) => {
     return (
         <div className={`rounded-2xl px-2 border-2 border-primary ${!isSelected ? 'bg-white border-solid  ' : 'bg-primary ' } `} onClick={onSelect}>
-            <img src={ !isSelected ? activeIcon : icon } height={24} width={24} />
+            {text && <div className={`${isSelected ? 'text-white' : 'text-black'} text-text-s-semibold`}>{text}</div>}
+            {!text && <img src={ !isSelected ? activeIcon : icon } height={24} width={24} />}
         </div>
     );
 }
@@ -23,6 +26,7 @@ export const SelectableThumb: React.FC<TSelectableThumbProps> = ({
 
 type TuseSelectableThumbsRowProps = {
     options: {
+        text?: string,
         icon: string,
         activeIcon: string;
     }[]
@@ -32,6 +36,7 @@ type TThumbsRowProps = {
     options: {
         icon: string,
         activeIcon: string;
+        text?: string,
     }[],
     selected: number;
     onSelect: (index: number) => void;
@@ -45,6 +50,7 @@ const ThumbsRow: React.FC<TThumbsRowProps> = (props:TThumbsRowProps ) => {
                     <SelectableThumb
                         key={index}
                         icon={option.icon}
+                        text={option.text}
                         isSelected={props.selected === index}
                         onSelect={() => props.onSelect(index)}
                         activeIcon={option.activeIcon}
