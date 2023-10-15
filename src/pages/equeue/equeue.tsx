@@ -54,7 +54,7 @@ export const EQueuePage: React.FC = () => {
                         dispatch(fetchDepartments())
                     }} />
                         <div className="text-black ">
-                            Вы стоите в очереди. Время ожидания составит примерно {calculateDepartmentAvgWaitTime(uticketDepartment, services)} минут
+                            Вы стоите в очереди. Время ожидания составит примерно {calculateDepartmentAvgWaitTime(uticketDepartment, services)} минут(ы)
                         </div>
                         <div className="text-black">
                             Номер талона: <b>{userTicket.label}</b>

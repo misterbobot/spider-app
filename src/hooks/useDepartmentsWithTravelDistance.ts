@@ -21,6 +21,9 @@ export const useDepartmentsWithTravelDistance = ({departments, userLocation, tra
         const service = new google.maps.DistanceMatrixService();
 
         const origin1 = { lat: userLocation.lat, lng:userLocation.lng };
+
+        if (!departments.length) return;
+        
         const request = {
           origins: [origin1],
           destinations: departments.map(department => ({lat: department.latitude, lng: department.longitude})),
@@ -31,6 +34,8 @@ export const useDepartmentsWithTravelDistance = ({departments, userLocation, tra
           avoidHighways: false,
           avoidTolls: false,
         };
+
+        
 
         // @ts-ignore
         service.getDistanceMatrix(request).then((response) => {

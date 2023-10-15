@@ -7,15 +7,16 @@ type DepartmentSheetProps = {
     department: TDepartment;
     isOpen: boolean;
     onClose: () => void;
+    isInjected?: boolean;
 }
 
-export const DepartmentSheet: React.FC<DepartmentSheetProps> = ({department, isOpen, onClose}) => {
+export const DepartmentSheet: React.FC<DepartmentSheetProps> = ({department, isOpen, onClose, isInjected}) => {
     return (
         <>
             <Sheet isOpen={isOpen} onClose={onClose} detent="content-height" >
                 <Sheet.Container >
                     <Sheet.Content >
-                        <Department department={department} />
+                        <Department isInjected={isInjected} department={department} />
                     </Sheet.Content>
                 </Sheet.Container>
                 <Sheet.Backdrop />

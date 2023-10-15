@@ -4,6 +4,7 @@ import { HomePage } from "../pages/home";
 import {AllServicesPage, ChooseServicePage, OfflinePage} from "../pages/services";
 import {ChatPage} from "../pages/services/chat";
 import { EQueuePage } from "../pages/equeue/equeue";
+import { Map } from "../components/map";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
     {
         path: "/service/online",
         element: <ChooseServicePage />,
+    },
+    {
+        path: "/injectable",
+        element: <Map isInjected />,
     },
     {
       path: "*",

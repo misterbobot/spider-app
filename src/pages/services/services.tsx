@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { FormEventHandler, useMemo, useState } from 'react'
 import {ServiceCard} from "../../components/cards/serviceCard";
 import PrimaryButton from "../../components/buttons/primaryButton";
 import {Link, useNavigate} from "react-router-dom";
@@ -21,6 +21,8 @@ export const ServicesPage: React.FC = () => {
         return removeServicesWithNoDepartmentsAndSetOnlineFirst(services,departments)
     }, [services, departments])
 
+    const [inputText, setInputText] = useState('')
+
     return (
         <div className="w-screen h-screen bg-white px-6 box-border">
             <Header hideBackButton />
@@ -33,11 +35,7 @@ export const ServicesPage: React.FC = () => {
                     <div className="flex gap-5">
                         {
                             filteredServices.slice(0,2).map((service) => (
-                                <Link to={''} onClick={( ) => {
-                                    if (service.onlineText) {
-                                        navigate(`/services/${service.id}/choose-service`);
-                                        return;
-                                    }
+                                <Link to={service.onlineText ? `/services/${service.id}/choose-service` : ''} onClick={service.onlineText? undefined: ( ) => {
                                     setActiveService(service)
                                     setTimeout(() => setIsNearestDepartmentSheetOpened(true), 300)
                                 }} >
@@ -64,10 +62,19 @@ export const ServicesPage: React.FC = () => {
                     </div>
 
                     <div className="flex flex-col gap-4 mb-[120px]">
-                        <input className="w-full h-[60px] p-4 border border-solid border-primary rounded-10" type="text" placeholder="Ваш запрос"/>
-                        <Link to={'/chat'}>
-                            <PrimaryButton disabled={false} title={"Далее"} onClick={() => undefined} />
-                        </Link>
+                        <input
+                            value={inputText}
+                            onChange={(value) => setInputText(value.target.value)}
+                            className="w-full text-black h-[60px] p-4 border border-solid border-primary rounded-10" type="text" placeholder="Ваш запрос"/>
+ 
+                            <PrimaryButton disabled={false} title={"Далее"} onClick={() => {
+                                                            navigate('/chat', {
+                                                                state: {
+                                                                    msg: inputText
+                                                                }
+                                                            });
+                            }} />
+
                     </div>
                 </div>
             </div>

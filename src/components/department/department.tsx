@@ -10,10 +10,12 @@ import { DepartmentTicketStatus } from "../departmentTicketStatus/departmentTick
 
 type DepartmentProps = {
     department: TDepartment;
+    isInjected?: boolean;
 }
 
 export const Department: React.FC<DepartmentProps> = ({
-    department
+    department,
+    isInjected
 }) => {
 
     return (
@@ -22,7 +24,7 @@ export const Department: React.FC<DepartmentProps> = ({
             <div className="px-6 py-4">
                 <DepartmentTitle title={department.salePointName} />
                 <DepartmentWaitTime department={department} />
-                {department.type ==='office' && <div className="mt-3">
+                {department.type ==='office' &&!isInjected && <div className="mt-3">
                 <DepartmentTicketStatus department={department} />
                     </div>}
                 <div className="mt-3">

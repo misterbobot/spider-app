@@ -13,7 +13,7 @@ export const RouteToDepartmentButton: React.FC<RouteToDepartmentButtonProps> = (
 ) => {
     return (
         <SmallButton onClick={() => {
-            window.open(`http://www.google.com/maps/place/${department.latitude},${department.longitude}`, '_blank')
+            window.open(`http://www.google.com/maps/place/${department.latitude},${department.longitude}`)
         }} title="Маршрут" disabled={false} />
     );
 }

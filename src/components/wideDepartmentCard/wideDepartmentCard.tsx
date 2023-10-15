@@ -16,7 +16,7 @@ export const WideDepartmentCard: React.FC<TWideDepartmentCardProps> = ({departme
         <div className="flex items-center w-full justify-between">
             <div className="flex-1">
                 <div className="w-full text-black">
-                    {department.salePointName}
+                    {department.type === 'atm' ? 'Банкомат ВТБ' : department.salePointName}
                 </div>
                 <div className="my-1">
                     <DepartmentShortSchedule department={department} />

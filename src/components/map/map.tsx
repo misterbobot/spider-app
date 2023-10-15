@@ -21,10 +21,16 @@ const defaultMapOptions: GoogleMapReact.MapOptions = {
   
 };
 
+type TMapProps = {
+  isInjected?: boolean;
+}
 
-export const Map: React.FC = () => {
 
-    const geolocation = useGeolocation();
+export const Map: React.FC<TMapProps> = ({
+  isInjected
+}) => {
+
+    const geolocation = useGeolocation({enableHighAccuracy: true});
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -37,7 +43,6 @@ export const Map: React.FC = () => {
   const filteredDepartments = filterDepartments(departments, filters);
 
   const onDepartmentClick = (department: TDepartment) => {
-    console.log(department)
     setChosenDepartment(department);
     setTimeout(() => {
       setIsDepartmentSheetOpen(true);
@@ -138,7 +143,7 @@ export const Map: React.FC = () => {
     const [isFiltersOpen, setIsFiltersOpen] = React.useState<boolean>(false);
 
     return (
-        <div style={{ height: '100vh', width: '100%' }} className="relative">
+        <div style={{ height: '100%', width: '100%' }} className="fixed">
           <div className="absolute z-20 p-2 right-0 flex items-center">
             <div className="mr-2">
               <ClearFiltersButton />
@@ -157,7 +162,7 @@ export const Map: React.FC = () => {
             </div>
           </div>
           {
-            chosenDepartment && <DepartmentSheet isOpen={isDepartmentSheetOpen} onClose={() => setIsDepartmentSheetOpen(false)} department={chosenDepartment} />
+            chosenDepartment && <DepartmentSheet isInjected={isInjected} isOpen={isDepartmentSheetOpen} onClose={() => setIsDepartmentSheetOpen(false)} department={chosenDepartment} />
           }
           <DepartmentsListBottomSheet openDepartmentSheet={(dep) => onDepartmentClick(dep)} isOpen={isDepartmentsListOpen} onClose={() => setIsDepartmentsListOpen(false)} departments={filteredDepartments} />
           <FiltersSheet isOpen={isFiltersOpen} onClose={() => setIsFiltersOpen(false)} />

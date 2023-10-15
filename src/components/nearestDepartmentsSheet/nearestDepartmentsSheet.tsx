@@ -42,7 +42,7 @@ export const NearestDepartmentsSheet: React.FC<TNearestDepartmentsSheetProps> = 
     const {ThumbsRow, selected} = useSelectTravelOption();
 
     const travelMode = useMemo(() => {
-        return selected === 0 ? 'BICYCLING' : selected === 1 ? 'DRIVING' : 'WALKING'
+        return selected === 0 ? 'DRIVING' : 'WALKING'
     }, [selected])
 
     const userLocation = useMemo(() => {

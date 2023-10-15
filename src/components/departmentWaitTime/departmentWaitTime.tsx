@@ -15,7 +15,7 @@ export const DepartmentWaitTime : React.FC<DepartmentWaitTimeProps> = ({departme
     return (
         <>
             <div className={`text-text-m-semibold text-darkBlue ${classNames}`}>
-                {`Примерно ${calculateDepartmentAvgWaitTime(department, services)} минут в очереди`}
+                {`Примерно ${calculateDepartmentAvgWaitTime(department, services)} минут(ы) в очереди`}
             </div>
         </>
     );

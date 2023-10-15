@@ -15,10 +15,10 @@ export const ServiceWaitTimeLabel: React.FC<TServiceWaitTimeLabelProps> = ({
                     <img src={Clock} alt="clock" />
                     <div className="flex flex-col ml-2 text-text-sm-bold text-primary leading-4">
                         <div>
-                            {waitTime}                    
+                            {Math.round(waitTime)}                    
                         </div>
                         <div >
-                            минуты
+                            минут(ы)
                         </div>
                     </div>
             </div>

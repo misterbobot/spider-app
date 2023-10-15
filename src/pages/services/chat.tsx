@@ -2,6 +2,8 @@ import React, {useEffect, useRef, useState} from 'react'
 import { Header } from '../../components/header/header';
 import {storage} from "../../utils/localStorage";
 import {CHAT_LIST} from "../../consts/chat";
+import { useLocation, useNavigate } from 'react-router-dom';
+import TopArrow from '../../assets/top-arrow.png'
 
 type TMsg = {
     isUserMsg: boolean;
@@ -10,6 +12,22 @@ type TMsg = {
 
 export const ChatPage: React.FC = () => {
     const [inputValue, setInputValue] = useState('');
+
+    const location = useLocation();
+
+    const navigate = useNavigate();
+
+    const { state } = location;
+
+    useEffect(() => {
+        if (state?.msg) {
+            setInputValue(state?.msg as string);
+            navigate('/chat', {
+                replace: true,
+            });
+        }
+    }, [navigate, state?.msg]);
+
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -61,7 +79,7 @@ export const ChatPage: React.FC = () => {
     }
 
     return (
-        <div className="w-screen relative h-screen bg-white px-6 box-border">
+        <div className="w-full fixed h-full bg-white px-6 box-border">
             <Header />
 
             <div className="h-[calc(100%-70px)] justify-between flex flex-col gap-3 pb-5 box-border">
@@ -102,7 +120,9 @@ export const ChatPage: React.FC = () => {
                         type="text"
                         placeholder="Ваш запрос"
                     />
-                    <button onClick={() => handleSendNewMsg(inputValue)} className="rounded-[25px] bg-primary w-[50px] h-[50px]"></button>
+                    <button onClick={() => handleSendNewMsg(inputValue)} className="rounded-[25px] bg-primary w-[50px] h-[50px]">
+                        <img src={TopArrow} className="w-[20px] h-[30px] m-auto" />
+                    </button>
                 </div>
             </div>
         </div>
