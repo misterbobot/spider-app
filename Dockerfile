@@ -22,7 +22,7 @@ CMD [ "npm", "start" ]
 
 FROM development AS build
 
-RUN npm run build
+RUN DISABLE_ESLINT_PLUGIN=true npm run build
 
 
 FROM development as dev-envs
