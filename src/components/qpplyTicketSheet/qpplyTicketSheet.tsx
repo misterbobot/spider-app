@@ -36,7 +36,7 @@ export const ApplyTicketSheet: React.FC<ApplyTicketSheetProps> = ({
     }, []);
     
     const onRequestTicketClick = () => {
-        fetch('http://84.252.129.66:8000/tickets/', {
+        fetch('http://158.160.111.178:8000/tickets/', {
             method: 'POST',
             body: JSON.stringify({
                 salePoint: department.id,

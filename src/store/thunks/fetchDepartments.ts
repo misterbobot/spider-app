@@ -5,7 +5,7 @@ import { departmentsSlice } from '../slices/departmentsSlice'
 export const fetchDepartments = () => async (dispatch: any) => {
     dispatch(departmentsSlice.actions.setIsLoading(true))
     try {
-        const response = await fetch('http://84.252.129.66:8000/get-departments/')
+        const response = await fetch('http://158.160.111.178:8000/get-departments/')
         const data = await response.json() as TDepartment[];
 
         const userTicket = findUserTicketInDeps(data);
