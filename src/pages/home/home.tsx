@@ -18,13 +18,15 @@ export const HomePage: React.FC = () => {
     }, [dispatch]);
 
     const isInfoPage = location.pathname === '/info';
+    const isQueuePage = location.pathname === '/queue';
     return (
         <>
             <div className="fixed z-10 bottom-10 left-[calc(50vw-100px)]">
                 <NavigationBar
                     onClickInfo={() => navigate('/info', {replace: true})}
                     onClickMap={() => navigate('/map', {replace: true})}
-                    activeTab={isInfoPage ? 'info' : 'map'}
+                    onClickQueue={() => navigate('/queue', {replace: true})}
+                    activeTab={isInfoPage ? 'info' : isQueuePage? 'queue' : 'map'}
                 />
             </div>
             <Routes>
